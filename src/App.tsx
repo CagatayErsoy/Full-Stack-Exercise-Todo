@@ -8,14 +8,15 @@ import Tododb, { Todos } from "./Tododb";
 import theme from "./themes/theme";
 
 function App() {
-  const url = "http://localhost:8000/"
+  
   const [allTodos, setAllTodos] = useState<Todos[]>([]);
   const [todos, setTodos] =  useState<Todos[]>([]);
 
   // get Todos from backend
   const fetchTodos=()=>{
     const api = async () => {
-      const data = await fetch(`${url}alltodos`, {
+     
+      const data = await fetch(`${process.env.REACT_APP_API_URL}alltodos`, {
         method: "GET",
       });
       const jsonData = await data.json();
@@ -66,7 +67,7 @@ function App() {
       >
         <Title />
         <Navbar getProgress={getProgress} fetchTodos={fetchTodos}></Navbar>
-        <TodoList todos={todos}  />
+        <TodoList todos={todos} fetchTodos={fetchTodos} />
       </Box>
     </ThemeProvider>
   );

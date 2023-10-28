@@ -6,30 +6,29 @@ import { Box } from "@mui/material";
 import theme from "../themes/theme";
 import TodoListProps from "../interfaces/TodoListprops";
 
-export default function TodoList({ todos }: TodoListProps) {
+export default function TodoList({ todos, fetchTodos }: TodoListProps) {
   const deleteTodo = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/todos/${id}/`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}todos/${id}/`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const result = await response.json();
       if (response.ok) {
-        console.log("deleted todo", result);
+        console.log("deleted todo");
       } else {
-        console.log("error deleting todo ", result);
+        console.log("error deleting todo");
       }
     } catch (err) {
       console.log("Error", err);
     }
   };
-  const handleDeleteTodo=(id:number)=>{
-    deleteTodo(id)
-  }
-//Popover functions
 
+  const handleDeleteTodo = async (id: number) => {
+    await deleteTodo(id);
+    fetchTodos();
+  };
 
   return (
     <List
@@ -46,11 +45,11 @@ export default function TodoList({ todos }: TodoListProps) {
         <TodoItem
           todo={todo}
           key={todo.id}
-         
-          handleDeleteTodo={()=>handleDeleteTodo(todo.id)}
-
+          handleDeleteTodo={() => handleDeleteTodo(todo.id)}
+          fetchTodos={fetchTodos}
         />
       ))}
     </List>
   );
-}
+};
+

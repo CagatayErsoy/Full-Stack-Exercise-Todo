@@ -19,7 +19,7 @@ function Modal({open, handleClose,fetchTodos}: ModalProps) {
     const[ notes,setNotes]=useState("")
   const  addTodos=async()=>{
     try {
-      const response =await fetch("http://localhost:8000/todos", {
+      const response =await fetch(`${process.env.REACT_APP_API_URL}todos`, {
         method:"POST",
         headers:{
           "Content-Type": "application/json"

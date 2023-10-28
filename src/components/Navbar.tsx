@@ -45,10 +45,11 @@ function Navbar( {getProgress,fetchTodos} :NavbarProps) {
         p: 4,
       }}
     >
-      <Modal open={open} handleClose={handleClose} fetchTodos={fetchTodos}/>
+     
       <Button variant="contained" color="success" sx={{ fontSize: 30 }} onClick={handleClickOpen}>
         + Add Task
       </Button>
+      <Modal open={open} handleClose={handleClose} fetchTodos={fetchTodos}/>
       <FormControl sx={{ minWidth: "200px", backgroundColor: "transparent" }}>
         <InputLabel
           id="Progress"
